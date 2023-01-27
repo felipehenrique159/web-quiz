@@ -1,0 +1,17 @@
+#fimDeJogo {
+    text-align: center;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+#fimDeJogo h2,
+#fimDeJogo p {
+    margin-bottom: 1rem;
+    color: #8435de;
+}
+
+#fimDeJogo img {
+    margin: 2rem;
+    max-height: 200px;
+}
