@@ -6,7 +6,9 @@ const STAGES = ['start', 'playing', 'end']
 const initialStage = {
     gameStage: STAGES[0],
     perguntas,
-    perguntaAtual: 0
+    perguntaAtual: 0,
+    pontuacao: 0,
+    respostaSelecionada: false
 }
 
 const quizReducer = (state, action) => {
@@ -37,7 +39,30 @@ const quizReducer = (state, action) => {
             return {
                 ...state,
                 perguntaAtual: proximaPergunta,
-                gameStage: fimDeJogo ? STAGES[2] : state.gameStage
+                gameStage: fimDeJogo ? STAGES[2] : state.gameStage,
+                respostaSelecionada: false
+            }
+        case 'NEW_GAME':
+            return initialStage
+
+        case 'CHECK_ANSWER':
+
+            if (state.respostaSelecionada) {
+                return state
+            }
+
+            const resposta = action.payload.opcaoSelecionada
+            const respostaCerta = action.payload.respostaCorreta
+            let respostaCorretaFlag = 0;
+
+            if (resposta == respostaCerta) {
+                respostaCorretaFlag = 1;
+            }
+
+            return {
+                ...state,
+                pontuacao: state.pontuacao + respostaCorretaFlag,
+                respostaSelecionada: resposta
             }
 
         default:
