@@ -1,7 +1,7 @@
 import { createContext, useReducer } from 'react'
-import perguntas from '../services/data/questions'
 
 const STAGES = ['start', 'playing', 'end']
+let perguntas = {}
 
 const initialStage = {
     gameStage: STAGES[0],
@@ -13,13 +13,13 @@ const initialStage = {
 
 const quizReducer = (state, action) => {
     switch (action.type) {
-        case 'CHANGE_STATE':
+        case 'STATUS_JOGANDO':
             return {
                 ...state,
                 gameStage: STAGES[1]
             }
-        case 'REODER_QUESTIONS':
-            const perguntasReordenadas = perguntas.sort(() => {
+        case 'SORTEAR_PERGUNTAS':
+            const perguntasReordenadas = initialStage.perguntas.sort(() => {
                 return Math.random() - 0.5;
             })
 
@@ -28,11 +28,11 @@ const quizReducer = (state, action) => {
                 perguntas: perguntasReordenadas
             }
 
-        case 'CHANGE_QUESTION':
+        case 'PROXIMA_PERGUNTA':
             const proximaPergunta = state.perguntaAtual + 1
             let fimDeJogo = false
 
-            if (!perguntas[proximaPergunta]) {
+            if (!initialStage.perguntas[proximaPergunta]) {
                 fimDeJogo = true
             }
 
@@ -42,10 +42,10 @@ const quizReducer = (state, action) => {
                 gameStage: fimDeJogo ? STAGES[2] : state.gameStage,
                 respostaSelecionada: false
             }
-        case 'NEW_GAME':
+        case 'NOVO_JOGO':
             return initialStage
 
-        case 'CHECK_ANSWER':
+        case 'VERIFICAR_RESPOSTA':
 
             if (state.respostaSelecionada) {
                 return state
@@ -55,7 +55,7 @@ const quizReducer = (state, action) => {
             const respostaCerta = action.payload.respostaCorreta
             let respostaCorretaFlag = 0;
 
-            if (resposta == respostaCerta) {
+            if (respostaCerta) {
                 respostaCorretaFlag = 1;
             }
 

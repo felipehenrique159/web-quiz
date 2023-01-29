@@ -11,7 +11,7 @@ const Inicio = () => {
         <div id='inicio'>
             <h2>Seja bem-vindo!</h2>
             <p>Clique no botão abaixo para começar</p>
-            <button type="button" onClick={() => dispatch({type: 'CHANGE_STATE'})}>Iniciar</button>
+            <button type="button" onClick={() => dispatch({type: 'STATUS_JOGANDO'})}>Iniciar</button>
             <img src={Quiz} alt="" />
         </div>
     )

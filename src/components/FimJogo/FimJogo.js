@@ -14,7 +14,7 @@ const FimJogo = () => {
             <p>Pontuação: {quizState.pontuacao}</p>
             <p>Você acertou {quizState.pontuacao} de {quizState.perguntas.length} perguntas</p>
             <img src={WellDone} alt="Fim do quiz" />
-            <button onClick={() => {dispatch({type:'NEW_GAME'})}}>Reiniciar</button>
+            <button onClick={() => {dispatch({type:'NOVO_JOGO'})}}>Reiniciar</button>
         </div>
     )
 }

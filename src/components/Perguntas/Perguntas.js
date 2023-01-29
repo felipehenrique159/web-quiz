@@ -11,10 +11,10 @@ const Perguntas = () => {
 
     const onSelectOption = (resposta) => {
         dispatch({
-            type: "CHECK_ANSWER",
+            type: "VERIFICAR_RESPOSTA",
             payload: {
-                respostaCorreta: perguntaAtual.answer,
-                opcaoSelecionada: resposta
+                respostaCorreta: resposta.RespostaCerta,
+                opcaoSelecionada: resposta.resposta
             }
         })
     }
@@ -22,19 +22,19 @@ const Perguntas = () => {
     return (
         <div id="pergunta">
             <p>Pergunta {quizState.perguntaAtual + 1} de {quizState.perguntas.length}</p>
-            <h2>{perguntaAtual.question}</h2>
+            <h2>{perguntaAtual.pergunta}</h2>
             <div id="options-container">
-                {perguntaAtual.options.map((resposta) => (
+                {perguntaAtual.Respostas.map((resposta) => (
                     <Respostas
-                        resposta={resposta}
-                        key={resposta}
-                        answer={perguntaAtual.answer}
+                        resposta={resposta.resposta}
+                        key={resposta.resposta}
+                        flagRespostaCerta={resposta.RespostaCerta}
                         selectOption={() => onSelectOption(resposta)}
-                        />
+                    />
                 ))}
             </div>
             {quizState.respostaSelecionada && (
-                <button onClick={() => dispatch({ type: 'CHANGE_QUESTION' })}>Continuar</button>
+                <button onClick={() => dispatch({ type: 'PROXIMA_PERGUNTA' })}>Continuar</button>
             )}
         </div>
     )
