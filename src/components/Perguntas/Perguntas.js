@@ -13,7 +13,7 @@ const Perguntas = () => {
         dispatch({
             type: "VERIFICAR_RESPOSTA",
             payload: {
-                respostaCorreta: resposta.RespostaCerta,
+                respostaCorreta: resposta.resposta_certa,
                 opcaoSelecionada: resposta.resposta
             }
         })
@@ -24,11 +24,11 @@ const Perguntas = () => {
             <p>Pergunta {quizState.perguntaAtual + 1} de {quizState.perguntas.length}</p>
             <h2>{perguntaAtual.pergunta}</h2>
             <div id="options-container">
-                {perguntaAtual.Respostas.map((resposta) => (
+                {perguntaAtual.respostasPergunta.map((resposta) => (
                     <Respostas
                         resposta={resposta.resposta}
                         key={resposta.resposta}
-                        flagRespostaCerta={resposta.RespostaCerta}
+                        flagRespostaCerta={resposta.resposta_certa}
                         selectOption={() => onSelectOption(resposta)}
                     />
                 ))}
